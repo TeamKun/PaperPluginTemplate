@@ -1,4 +1,4 @@
-name: PaperPluginTemplate
+name: '${name}'
 version: '${version}'
-main: net.kunmc.lab.paperplugintemplate.PaperPluginTemplate
+main: '${MainClass}'
 api-version: 1.16
