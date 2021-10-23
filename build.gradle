@@ -52,7 +52,7 @@ tasks.withType(JavaCompile).configureEach {
 tasks.build.dependsOn tasks.shadowJar
 
 processResources {
-    def props = [name: rootProject.name,version: version, MainClass: getMainClassFQDN(projectDir.toPath())]
+    def props = [name: rootProject.name, version: version, MainClass: getMainClassFQDN(projectDir.toPath())]
     inputs.properties props
     filteringCharset "UTF-8"
     filesMatching("plugin.yml") {
