@@ -123,3 +123,4 @@ libs/*
 
 server/*
 !server/.keep
+!server/server.properties
