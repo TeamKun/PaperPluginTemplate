@@ -1,0 +1,4 @@
+name: PaperPluginTemplate
+version: '${version}'
+main: net.kunmc.lab.paperplugintemplate.PaperPluginTemplate
+api-version: 1.16
