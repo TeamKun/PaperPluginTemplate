@@ -64,6 +64,12 @@ shadowJar {
     archiveFileName = "${rootProject.name}-${version}.jar"
 }
 
+task copyToServer(type: Copy) {
+    mustRunAfter build
+    from new File(buildDir.absolutePath, "libs/${rootProject.name}-${version}.jar")
+    into "./server/plugins"
+}
+
 static String getMainClassFQDN(Path projectPath) {
     List<Path> javaFileList = Files.walk(projectPath)
             .filter(x -> x.getFileName().toString().endsWith(".java"))
