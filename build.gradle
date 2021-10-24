@@ -30,7 +30,7 @@ dependencies {
     //compileOnly "com.comphenix.protocol:ProtocolLib:4.7.0"
     //compileOnly fileTree(dir: "./server/cache/", include: "patched_1.16.5.jar")
     //compileOnly fileTree(dir: "./libs/", include: "patched_1.16.5.jar")
-    //implementation "dev.kotx:flylib-reloaded:0.3.18"
+    //implementation "dev.kotx:flylib-reloaded:0.4.1"
 }
 
 def targetJavaVersion = 8
