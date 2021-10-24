@@ -70,6 +70,10 @@ task copyToServer(type: Copy) {
     into "./server/plugins"
 }
 
+task buildAndCopy {
+    dependsOn build, copyToServer
+}
+
 static String getMainClassFQDN(Path projectPath) {
     List<Path> javaFileList = Files.walk(projectPath)
             .filter(x -> x.getFileName().toString().endsWith(".java"))
