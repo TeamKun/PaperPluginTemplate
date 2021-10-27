@@ -76,6 +76,16 @@ task copyToServer(type: Copy) {
     into "./server/plugins"
 }
 
+task copyProtocolLibToServer(type: Copy) {
+    File file = configurations.compileClasspath.getFiles().stream()
+            .filter(x -> x.getName().matches(".*ProtocolLib.*.jar"))
+            .findFirst().orElse(null)
+    if (file != null) {
+        from file
+        into "server/plugins"
+    }
+}
+
 task buildAndCopy {
     dependsOn build, copyToServer
 }
