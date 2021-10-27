@@ -32,7 +32,6 @@ dependencies {
     compileOnly "com.destroystokyo.paper:paper-api:1.16.5-R0.1-SNAPSHOT"
     //compileOnly "com.comphenix.protocol:ProtocolLib:4.7.0"
     //compileOnly fileTree(dir: "./server/cache/", include: "patched_1.16.5.jar")
-    //compileOnly fileTree(dir: "./libs/", include: "patched_1.16.5.jar")
     //implementation "dev.kotx:flylib-reloaded:0.4.1"
 }
 
@@ -98,6 +97,25 @@ task downloadServerJar {
         try (InputStream stream = url.openStream()) {
             Files.copy(stream, file.toPath(), StandardCopyOption.REPLACE_EXISTING)
         }
+    }
+}
+
+task generatePatchedJar(dependsOn: downloadServerJar) {
+    String serverDir = projectDir.toPath().toAbsolutePath().toString() + "/server"
+
+    File file = new File(serverDir + "/cache/patched_1.16.5.jar")
+    if (file.exists()) {
+        return
+    }
+
+    try {
+        Runtime runtime = Runtime.getRuntime()
+        Process p = runtime.exec("java -jar " + serverDir + "/server.jar nogui", new String[0], new File(serverDir))
+        while (!file.exists()) {
+        }
+        p.destroy()
+    } catch (Exception e) {
+        e.printStackTrace()
     }
 }
 
