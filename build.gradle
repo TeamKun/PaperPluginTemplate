@@ -1,3 +1,5 @@
+import org.apache.tools.ant.filters.ReplaceTokens
+
 import java.nio.file.Files
 import java.nio.file.Path
 import java.util.stream.Collectors
@@ -53,11 +55,13 @@ tasks.withType(JavaCompile).configureEach {
 tasks.build.dependsOn tasks.shadowJar
 
 processResources {
-    def props = [name: rootProject.name, version: version, MainClass: getMainClassFQDN(projectDir.toPath())]
-    inputs.properties props
     filteringCharset "UTF-8"
-    filesMatching("plugin.yml") {
-        expand props
+    filesMatching("**/plugin.yml") {
+        filter(ReplaceTokens, tokens: [
+                "name"     : rootProject.name,
+                "version"  : version,
+                "MainClass": getMainClassFQDN(projectDir.toPath())
+        ])
     }
 }
 
