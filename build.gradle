@@ -69,13 +69,13 @@ shadowJar {
     archiveFileName = "${rootProject.name}-${version}.jar"
 }
 
-task copyToServer(type: Copy) {
+task copyToServer(group: "copy", type: Copy) {
     mustRunAfter build
     from new File(buildDir.absolutePath, "libs/${rootProject.name}-${version}.jar")
     into "./server/plugins"
 }
 
-task copyProtocolLibToServer(type: Copy) {
+task copyProtocolLibToServer(group: "copy", type: Copy) {
     File file = configurations.compileClasspath.getFiles().stream()
             .filter(x -> x.getName().matches(".*ProtocolLib.*.jar"))
             .findFirst().orElse(null)
@@ -85,7 +85,7 @@ task copyProtocolLibToServer(type: Copy) {
     }
 }
 
-task buildAndCopy {
+task buildAndCopy(group: "build") {
     dependsOn build, copyToServer
 }
 
@@ -100,7 +100,7 @@ task downloadServerJar {
     }
 }
 
-task generatePatchedJar(dependsOn: downloadServerJar) {
+task generatePatchedJar(group: "setup", dependsOn: downloadServerJar) {
     String serverDir = projectDir.toPath().toAbsolutePath().toString() + "/server"
 
     File file = new File(serverDir + "/cache/patched_1.16.5.jar")
