@@ -2,6 +2,7 @@ import org.apache.tools.ant.filters.ReplaceTokens
 
 import java.nio.file.Files
 import java.nio.file.Path
+import java.nio.file.StandardCopyOption
 import java.util.stream.Collectors
 
 plugins {
@@ -77,6 +78,17 @@ task copyToServer(type: Copy) {
 
 task buildAndCopy {
     dependsOn build, copyToServer
+}
+
+task downloadServerJar {
+    URL url = new URL("https://papermc.io/api/v2/projects/paper/versions/1.16.5/builds/790/downloads/paper-1.16.5-790.jar ")
+    File file = new File(projectDir.toPath().toAbsolutePath().toString() + "/server/server.jar")
+
+    if (!file.exists()) {
+        try (InputStream stream = url.openStream()) {
+            Files.copy(stream, file.toPath(), StandardCopyOption.REPLACE_EXISTING)
+        }
+    }
 }
 
 static String getMainClassFQDN(Path projectPath) {
