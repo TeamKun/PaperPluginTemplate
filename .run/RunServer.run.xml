@@ -8,12 +8,13 @@
         <method v="2">
             <option name="Gradle.BeforeRunTask" enabled="true" tasks="downloadServerJar"
                     externalProjectPath="$PROJECT_DIR$" vmOptions="" scriptParameters=""/>
+            <option name="Gradle.BeforeRunTask" enabled="true" tasks="build" externalProjectPath="$PROJECT_DIR$"
+                    vmOptions="" scriptParameters=""/>
             <option name="Gradle.BeforeRunTask" enabled="true" tasks="copyProtocolLibToServer"
                     externalProjectPath="$PROJECT_DIR$" vmOptions="" scriptParameters=""/>
             <option name="Gradle.BeforeRunTask" enabled="true" tasks="copyToServer" externalProjectPath="$PROJECT_DIR$"
                     vmOptions="" scriptParameters=""/>
-            <option name="Gradle.BeforeRunTask" enabled="true" tasks="build" externalProjectPath="$PROJECT_DIR$"
-                    vmOptions="" scriptParameters=""/>
+
         </method>
     </configuration>
 </component>
