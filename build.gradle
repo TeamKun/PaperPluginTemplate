@@ -111,8 +111,7 @@ task generatePatchedJar(group: "setup", dependsOn: downloadServerJar) {
     try {
         Runtime runtime = Runtime.getRuntime()
         Process p = runtime.exec("java -jar " + serverDir + "/server.jar nogui", new String[0], new File(serverDir))
-        while (!file.exists()) {
-        }
+        p.waitFor()
         p.destroy()
     } catch (Exception e) {
         e.printStackTrace()
