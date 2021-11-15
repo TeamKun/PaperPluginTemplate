@@ -35,6 +35,13 @@ dependencies {
     //implementation "dev.kotx:flylib-reloaded:0.4.1"
 }
 
+//import com.github.jengelman.gradle.plugins.shadow.tasks.ConfigureShadowRelocation
+//task relocateShadow(type: ConfigureShadowRelocation) {
+//    target = tasks.shadowJar
+//    prefix = project.group
+//}
+//tasks.shadowJar.dependsOn tasks.relocateShadow
+
 def targetJavaVersion = 8
 java {
     def javaVersion = JavaVersion.toVersion(targetJavaVersion)
