@@ -26,6 +26,9 @@ repositories {
     maven {
         url = "https://repo.dmulloy2.net/repository/public/"
     }
+    maven {
+        url = 'https://jitpack.io'
+    }
 }
 
 dependencies {
@@ -33,6 +36,7 @@ dependencies {
     //compileOnly "com.comphenix.protocol:ProtocolLib:4.7.0"
     //compileOnly fileTree(dir: "./server/cache/", include: "patched_1.16.5.jar")
     //implementation "dev.kotx:flylib-reloaded:0.5.0"
+    //implementation 'com.github.TeamKun:ConfigLib:0.8.2'
 }
 
 //import com.github.jengelman.gradle.plugins.shadow.tasks.ConfigureShadowRelocation
