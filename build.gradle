@@ -11,7 +11,7 @@ plugins {
 }
 
 group = "net.kunmc.lab"
-version = "1.0.0"
+version = "1.2.0"
 
 repositories {
     mavenCentral()
@@ -60,6 +60,10 @@ tasks.withType(JavaCompile).configureEach {
 }
 
 tasks.build.dependsOn tasks.shadowJar
+
+tasks.build {
+    new File("./build/resources/main/plugin.yml").delete()
+}
 
 processResources {
     filteringCharset "UTF-8"
