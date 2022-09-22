@@ -51,6 +51,16 @@ tasks.withType(JavaCompile).configureEach {
     }
 }
 
+jar {
+    doFirst {
+        copy {
+            from '.'
+            into buildDir.name + '/resources/main/'
+            include 'LICENSE*'
+        }
+    }
+}
+
 shadowJar {
     archiveFileName = "${rootProject.name}-${project.version}.jar"
     relocate "net.kunmc.lab.commandlib", "${project.group}.${project.name.toLowerCase()}.commandlib"
