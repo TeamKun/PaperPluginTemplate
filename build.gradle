@@ -1,7 +1,6 @@
 import java.nio.file.Files
 import java.nio.file.Path
 import java.nio.file.StandardCopyOption
-import java.util.stream.Collectors
 
 plugins {
     id "java"
@@ -28,7 +27,7 @@ repositories {
 
 dependencies {
     compileOnly "com.destroystokyo.paper:paper-api:1.16.5-R0.1-SNAPSHOT"
-    //compileOnly "com.comphenix.protocol:ProtocolLib:4.7.0"
+    compileOnly "com.comphenix.protocol:ProtocolLib:4.7.0"
     //compileOnly name: "patched_1.16.5"
     implementation 'com.github.TeamKun.CommandLib:bukkit:latest.release'
     implementation 'com.github.TeamKun.ConfigLib:bukkit:latest.release'
@@ -84,13 +83,13 @@ task copyToServer(group: "copy", type: Copy) {
 }
 
 task copyProtocolLibToServer(group: "copy", type: Copy) {
-    File file = configurations.compileClasspath.getFiles().stream()
+    configurations.compileClasspath.getFiles().stream()
             .filter(x -> x.getName().matches(".*ProtocolLib.*.jar"))
-            .findFirst().orElse(null)
-    if (file != null) {
-        from file
-        into "server/plugins"
-    }
+            .findFirst()
+            .ifPresent(x -> {
+                from x
+                into "server/plugins"
+            })
 }
 
 task buildAndCopy(group: "build") {
@@ -127,11 +126,10 @@ task generatePatchedJar(group: "setup", dependsOn: downloadServerJar) {
 }
 
 static String getMainClassFQDN(Path projectPath) {
-    List<Path> javaFileList = Files.walk(projectPath)
+    Path mainClassFile = Files.walk(projectPath)
             .filter(x -> x.getFileName().toString().endsWith(".java"))
-            .collect(Collectors.toList())
-    Path mainClassFile = javaFileList.stream()
             .filter(path -> Files.lines(path).anyMatch(str -> str.contains("extends JavaPlugin")))
-            .findFirst().get()
+            .findFirst()
+            .get()
     return mainClassFile.toString().replace("\\", ".").replace("/", ".").replaceAll(".*src.main.java.|.java\$", "")
 }
