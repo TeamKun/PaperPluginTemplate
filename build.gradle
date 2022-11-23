@@ -20,6 +20,10 @@ repositories {
         name = "sonatype"
         url = "https://oss.sonatype.org/content/groups/public/"
     }
+    maven {
+        name = "enginehub-maven"
+        url = "https://maven.enginehub.org/repo/"
+    }
     maven { url = "https://repo.dmulloy2.net/repository/public/" }
     maven { url = 'https://jitpack.io' }
     flatDir { dirs "server/cache", "libs" }
@@ -27,7 +31,9 @@ repositories {
 
 dependencies {
     compileOnly "com.destroystokyo.paper:paper-api:1.16.5-R0.1-SNAPSHOT"
-    compileOnly "com.comphenix.protocol:ProtocolLib:4.7.0"
+    //compileOnly "com.sk89q.worldedit:worldedit-bukkit:latest.release"
+    //compileOnly "com.sk89q.worldedit:worldedit-core:latest.release"
+    //compileOnly "com.comphenix.protocol:ProtocolLib:latest.release"
     //compileOnly name: "patched_1.16.5"
     implementation 'com.github.TeamKun.CommandLib:bukkit:latest.release'
     implementation 'com.github.TeamKun.ConfigLib:bukkit:latest.release'
