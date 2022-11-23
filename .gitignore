@@ -122,5 +122,6 @@ libs/*
 !/libs/.keep
 
 server/*
-!server/.keep
 !server/server.properties
+!server/plugins
+!server/plugins/*
