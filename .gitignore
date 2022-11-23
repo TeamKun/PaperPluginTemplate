@@ -124,4 +124,5 @@ libs/*
 server/*
 !server/server.properties
 !server/plugins
-!server/plugins/*
+!server/plugins/AutoReloader*.jar
+!server/plugins/PlugManX.jar
