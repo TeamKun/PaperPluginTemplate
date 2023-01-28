@@ -74,7 +74,7 @@ shadowJar {
 tasks.build.dependsOn tasks.shadowJar
 
 processResources {
-    def props = [name: rootProject.name, version: version, MainClass: getMainClassFQDN(projectDir.toPath())]
+    def props = [name: rootProject.name, version: version, MainClass: getMainClassFQCN(projectDir.toPath())]
     inputs.properties props
     filteringCharset "UTF-8"
     filesMatching("plugin.yml") {
@@ -131,7 +131,7 @@ task generatePatchedJar(group: "setup", dependsOn: downloadServerJar) {
     }
 }
 
-static String getMainClassFQDN(Path projectPath) {
+static String getMainClassFQCN(Path projectPath) {
     Path mainClassFile = Files.walk(projectPath)
             .filter(x -> x.getFileName().toString().endsWith(".java"))
             .filter(path -> Files.lines(path).anyMatch(str -> str.contains("extends JavaPlugin")))
