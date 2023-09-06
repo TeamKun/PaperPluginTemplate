@@ -67,6 +67,7 @@ jar {
 }
 
 shadowJar {
+    mergeServiceFiles()
     archiveFileName = "${rootProject.name}-${project.version}.jar"
     relocate "net.kunmc.lab.commandlib", "${project.group}.${project.name.toLowerCase()}.commandlib"
     relocate "net.kunmc.lab.configlib", "${project.group}.${project.name.toLowerCase()}.configlib"
