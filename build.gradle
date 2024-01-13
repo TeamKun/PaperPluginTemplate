@@ -87,6 +87,9 @@ task copyToServer(group: "copy", type: Copy) {
     mustRunAfter build
     from new File(buildDir.absolutePath, "libs/${rootProject.name}-${version}.jar")
     into "./server/plugins"
+    rename { String fileName ->
+        fileName.replace("-${version}", "")
+    }
 }
 
 task copyProtocolLibToServer(group: "copy", type: Copy) {
