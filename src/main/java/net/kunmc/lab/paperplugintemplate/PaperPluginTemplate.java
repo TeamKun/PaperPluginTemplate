@@ -7,11 +7,11 @@ import java.util.Objects;
 
 public final class PaperPluginTemplate extends JavaPlugin {
     private static PaperPluginTemplate INSTANCE;
-    
+
     public static PaperPluginTemplate getInstance() {
         return INSTANCE;
     }
-    
+
     @Override
     public void onEnable() {
         INSTANCE = this;
