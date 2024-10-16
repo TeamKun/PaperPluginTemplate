@@ -83,12 +83,17 @@ processResources {
     }
 }
 
-task copyToServer(group: "copy", type: Copy) {
+task copyToServer(group: "copy") {
     mustRunAfter build
-    from new File(buildDir.absolutePath, "libs/${rootProject.name}-${version}.jar")
-    into "./server/plugins"
-    rename { String fileName ->
-        fileName.replace("-${version}", "")
+
+    doLast {
+        copy {
+            from new File(buildDir.absolutePath, "libs/${rootProject.name}-${version}.jar")
+            into "./server/plugins"
+            rename { String fileName ->
+                fileName.replace("-${version}", "")
+            }
+        }
     }
 }
 
