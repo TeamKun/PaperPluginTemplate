@@ -98,8 +98,20 @@ task copyToServer(group: "copy") {
 }
 
 task copyProtocolLibToServer(group: "copy", type: Copy) {
+    String fileNamePattern = ".*ProtocolLib.*.jar"
+
+    boolean exists = new File("server/plugins/").listFiles(new FilenameFilter() {
+        @Override
+        boolean accept(File dir, String name) {
+            return name.matches(fileNamePattern)
+        }
+    })
+    if (exists) {
+        return
+    }
+
     configurations.compileClasspath.getFiles().stream()
-            .filter(x -> x.getName().matches(".*ProtocolLib.*.jar"))
+            .filter(x -> x.getName().matches(fileNamePattern))
             .findFirst()
             .ifPresent(x -> {
                 from x
