@@ -4,7 +4,7 @@ import java.nio.file.StandardCopyOption
 
 plugins {
     id "java"
-    id "com.github.johnrengelman.shadow" version "7.1.2"
+    id "com.gradleup.shadow" version "8.3.5"
 }
 
 group = "net.kunmc.lab"
@@ -31,10 +31,14 @@ repositories {
 
 dependencies {
     compileOnly "com.destroystokyo.paper:paper-api:1.16.5-R0.1-SNAPSHOT"
+    // Change targetJavaVersion to 21 or later when using PaperAPI version 1.21 or later
+    //compileOnly "io.papermc.paper:paper-api:1.21.3-R0.1-SNAPSHOT"
+
     //compileOnly "com.sk89q.worldedit:worldedit-bukkit:latest.release"
     //compileOnly "com.sk89q.worldedit:worldedit-core:latest.release"
     //compileOnly "com.comphenix.protocol:ProtocolLib:latest.release"
     //compileOnly name: "patched_1.16.5"
+
     implementation 'com.github.TeamKun.CommandLib:bukkit:latest.release'
     implementation 'com.github.TeamKun.ConfigLib:bukkit:latest.release'
 }
