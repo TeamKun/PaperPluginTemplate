@@ -1,6 +1,17 @@
+import com.google.gson.GsonBuilder
+
 import java.nio.file.Files
 import java.nio.file.Path
+import java.nio.file.Paths
 import java.nio.file.StandardCopyOption
+import java.time.Instant
+import java.time.temporal.ChronoUnit
+
+buildscript {
+    dependencies {
+        classpath "com.google.code.gson:gson:2.10"
+    }
+}
 
 plugins {
     id "java"
@@ -9,6 +20,8 @@ plugins {
 
 group = "net.kunmc.lab"
 version = "1.0.0"
+
+final String MC_VERSION = "1.16.5"
 
 repositories {
     mavenCentral()
@@ -29,10 +42,45 @@ repositories {
     flatDir { dirs "server/cache", "libs" }
 }
 
+class PaperDependencyUrlAndJavaVersion {
+    final String url
+    final int javaVersion;
+
+    PaperDependencyUrlAndJavaVersion(String url, int javaVersion) {
+        this.url = url
+        this.javaVersion = javaVersion
+    }
+}
+
+final Map<String, PaperDependencyUrlAndJavaVersion> PAPER_DEPEND_AND_JAVA_VERSION_MAP = new HashMap<String, PaperDependencyUrlAndJavaVersion>() {
+    {
+        put("1.16.5", new PaperDependencyUrlAndJavaVersion("com.destroystokyo.paper:paper-api:1.16.5-R0.1-SNAPSHOT", 8))
+        put("1.17", new PaperDependencyUrlAndJavaVersion("io.papermc.paper:paper-api:1.17-R0.1-SNAPSHOT", 17))
+        put("1.17.1", new PaperDependencyUrlAndJavaVersion("io.papermc.paper:paper-api:1.17.1-R0.1-SNAPSHOT", 17))
+        put("1.18", new PaperDependencyUrlAndJavaVersion("io.papermc.paper:paper-api:1.18-R0.1-SNAPSHOT", 17))
+        put("1.18.1", new PaperDependencyUrlAndJavaVersion("io.papermc.paper:paper-api:1.18.1-R0.1-SNAPSHOT", 17))
+        put("1.18.2", new PaperDependencyUrlAndJavaVersion("io.papermc.paper:paper-api:1.18.2-R0.1-SNAPSHOT", 17))
+        put("1.19", new PaperDependencyUrlAndJavaVersion("io.papermc.paper:paper-api:1.19-R0.1-SNAPSHOT", 17))
+        put("1.19.1", new PaperDependencyUrlAndJavaVersion("io.papermc.paper:paper-api:1.19.1-R0.1-SNAPSHOT", 17))
+        put("1.19.2", new PaperDependencyUrlAndJavaVersion("io.papermc.paper:paper-api:1.19.2-R0.1-SNAPSHOT", 17))
+        put("1.19.3", new PaperDependencyUrlAndJavaVersion("io.papermc.paper:paper-api:1.19.3-R0.1-SNAPSHOT", 17))
+        put("1.19.4", new PaperDependencyUrlAndJavaVersion("io.papermc.paper:paper-api:1.19.4-R0.1-SNAPSHOT", 17))
+        put("1.20", new PaperDependencyUrlAndJavaVersion("io.papermc.paper:paper-api:1.20-R0.1-SNAPSHOT", 21))
+        put("1.20.1", new PaperDependencyUrlAndJavaVersion("io.papermc.paper:paper-api:1.20.1-R0.1-SNAPSHOT", 21))
+        put("1.20.2", new PaperDependencyUrlAndJavaVersion("io.papermc.paper:paper-api:1.20.2-R0.1-SNAPSHOT", 21))
+        put("1.20.3", new PaperDependencyUrlAndJavaVersion("io.papermc.paper:paper-api:1.20.3-R0.1-SNAPSHOT", 21))
+        put("1.20.4", new PaperDependencyUrlAndJavaVersion("io.papermc.paper:paper-api:1.20.4-R0.1-SNAPSHOT", 21))
+        put("1.20.5", new PaperDependencyUrlAndJavaVersion("io.papermc.paper:paper-api:1.20.5-R0.1-SNAPSHOT", 21))
+        put("1.20.6", new PaperDependencyUrlAndJavaVersion("io.papermc.paper:paper-api:1.20.6-R0.1-SNAPSHOT", 21))
+        put("1.21", new PaperDependencyUrlAndJavaVersion("io.papermc.paper:paper-api:1.21-R0.1-SNAPSHOT", 21))
+        put("1.21.1", new PaperDependencyUrlAndJavaVersion("io.papermc.paper:paper-api:1.21.1-R0.1-SNAPSHOT", 21))
+        put("1.21.3", new PaperDependencyUrlAndJavaVersion("io.papermc.paper:paper-api:1.21.3-R0.1-SNAPSHOT", 21))
+        put("1.21.4", new PaperDependencyUrlAndJavaVersion("io.papermc.paper:paper-api:1.21.4-R0.1-SNAPSHOT", 21))
+    }
+}
+
 dependencies {
-    compileOnly "com.destroystokyo.paper:paper-api:1.16.5-R0.1-SNAPSHOT"
-    // Change targetJavaVersion to 21 or later when using PaperAPI version 1.21 or later
-    //compileOnly "io.papermc.paper:paper-api:1.21.3-R0.1-SNAPSHOT"
+    compileOnly PAPER_DEPEND_AND_JAVA_VERSION_MAP.get(MC_VERSION).url
 
     //compileOnly "com.sk89q.worldedit:worldedit-bukkit:latest.release"
     //compileOnly "com.sk89q.worldedit:worldedit-core:latest.release"
@@ -43,7 +91,7 @@ dependencies {
     implementation 'com.github.TeamKun.ConfigLib:bukkit:latest.release'
 }
 
-def targetJavaVersion = 8
+def targetJavaVersion = PAPER_DEPEND_AND_JAVA_VERSION_MAP.get(MC_VERSION).javaVersion
 java {
     def javaVersion = JavaVersion.toVersion(targetJavaVersion)
     sourceCompatibility = javaVersion
@@ -128,13 +176,31 @@ task buildAndCopy(group: "build") {
 }
 
 task downloadServerJar {
-    URL url = new URL("https://api.papermc.io/v2/projects/paper/versions/1.16.5/builds/794/downloads/paper-1.16.5-794.jar")
-    File file = new File(projectDir.toPath().toAbsolutePath().toString() + "/server/server.jar")
+    File serverJarFile = new File(projectDir.toPath().toAbsolutePath().toString() + "/server/server.jar")
+    if (serverJarFile.exists()) {
+        return
+    }
 
-    if (!file.exists()) {
-        try (InputStream stream = url.openStream()) {
-            Files.copy(stream, file.toPath(), StandardCopyOption.REPLACE_EXISTING)
+    File linksFile = Paths.get("./paper-version-links.json").toFile()
+    if (!linksFile.exists() || Instant.ofEpochMilli(linksFile.lastModified()).isBefore(Instant.now().plus(1, ChronoUnit.DAYS))) {
+        URL paperVersionLinksUrl = URI.create("https://raw.githubusercontent.com/liebki/MinecraftServerForkDownloads/refs/heads/main/paper_downloads.json").toURL()
+        linksFile.createNewFile()
+        try (InputStream stream = paperVersionLinksUrl.openStream(); FileWriter writer = new FileWriter(linksFile)) {
+            byte[] allBytes = stream.readAllBytes()
+            writer.write(new String(allBytes))
         }
+    }
+
+    Map<String, String> versionMap
+    try (FileReader reader = new FileReader(linksFile)) {
+        versionMap = new GsonBuilder().create().fromJson(reader, Map.class)
+    }
+    assert versionMap != null
+    String serverUrl = versionMap.get(MC_VERSION)
+    assert serverUrl != null
+
+    try (InputStream stream = URI.create(serverUrl).toURL().openStream()) {
+        Files.copy(stream, serverJarFile.toPath(), StandardCopyOption.REPLACE_EXISTING)
     }
 }
 
@@ -148,7 +214,7 @@ task generatePatchedJar(group: "setup", dependsOn: downloadServerJar) {
 
     try {
         Runtime runtime = Runtime.getRuntime()
-        Process p = runtime.exec("java -jar " + serverDir + "/server.jar nogui", new String[0], new File(serverDir))
+        Process p = runtime.exec(new String[]{"java", "-jar", serverDir + "/server.jar", "nogui"}, new String[0], new File(serverDir))
         p.waitFor()
         p.destroy()
     } catch (Exception e) {
