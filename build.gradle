@@ -222,6 +222,15 @@ task generatePatchedJar(group: "setup", dependsOn: downloadServerJar) {
     }
 }
 
+task copyDefaultServerProperties(group: "setup", dependsOn: downloadServerJar) {
+    String serverDir = projectDir.toPath().toAbsolutePath().toString() + "/server"
+    Path dst = Path.of(serverDir, "server.properties")
+    if (dst.toFile().exists()) {
+        return
+    }
+    Files.copy(Path.of(serverDir, "server.default.properties"), dst)
+}
+
 static String getMainClassFQCN(Path projectPath) {
     Path mainClassFile = Files.walk(projectPath)
             .filter(x -> x.getFileName().toString().endsWith(".java"))
