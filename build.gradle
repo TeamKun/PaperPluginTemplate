@@ -42,45 +42,45 @@ repositories {
     flatDir { dirs "server/cache", "libs" }
 }
 
-class PaperDependencyUrlAndJavaVersion {
+class PaperDependencyProps {
     final String url
-    final int javaVersion;
+    final int javaVersion
 
-    PaperDependencyUrlAndJavaVersion(String url, int javaVersion) {
+    PaperDependencyProps(String url, int javaVersion) {
         this.url = url
         this.javaVersion = javaVersion
     }
 }
 
-final Map<String, PaperDependencyUrlAndJavaVersion> PAPER_DEPEND_AND_JAVA_VERSION_MAP = new HashMap<String, PaperDependencyUrlAndJavaVersion>() {
+final Map<String, PaperDependencyProps> PAPER_DEPENDS = new HashMap<String, PaperDependencyProps>() {
     {
-        put("1.16.5", new PaperDependencyUrlAndJavaVersion("com.destroystokyo.paper:paper-api:1.16.5-R0.1-SNAPSHOT", 8))
-        put("1.17", new PaperDependencyUrlAndJavaVersion("io.papermc.paper:paper-api:1.17-R0.1-SNAPSHOT", 17))
-        put("1.17.1", new PaperDependencyUrlAndJavaVersion("io.papermc.paper:paper-api:1.17.1-R0.1-SNAPSHOT", 17))
-        put("1.18", new PaperDependencyUrlAndJavaVersion("io.papermc.paper:paper-api:1.18-R0.1-SNAPSHOT", 17))
-        put("1.18.1", new PaperDependencyUrlAndJavaVersion("io.papermc.paper:paper-api:1.18.1-R0.1-SNAPSHOT", 17))
-        put("1.18.2", new PaperDependencyUrlAndJavaVersion("io.papermc.paper:paper-api:1.18.2-R0.1-SNAPSHOT", 17))
-        put("1.19", new PaperDependencyUrlAndJavaVersion("io.papermc.paper:paper-api:1.19-R0.1-SNAPSHOT", 17))
-        put("1.19.1", new PaperDependencyUrlAndJavaVersion("io.papermc.paper:paper-api:1.19.1-R0.1-SNAPSHOT", 17))
-        put("1.19.2", new PaperDependencyUrlAndJavaVersion("io.papermc.paper:paper-api:1.19.2-R0.1-SNAPSHOT", 17))
-        put("1.19.3", new PaperDependencyUrlAndJavaVersion("io.papermc.paper:paper-api:1.19.3-R0.1-SNAPSHOT", 17))
-        put("1.19.4", new PaperDependencyUrlAndJavaVersion("io.papermc.paper:paper-api:1.19.4-R0.1-SNAPSHOT", 17))
-        put("1.20", new PaperDependencyUrlAndJavaVersion("io.papermc.paper:paper-api:1.20-R0.1-SNAPSHOT", 21))
-        put("1.20.1", new PaperDependencyUrlAndJavaVersion("io.papermc.paper:paper-api:1.20.1-R0.1-SNAPSHOT", 21))
-        put("1.20.2", new PaperDependencyUrlAndJavaVersion("io.papermc.paper:paper-api:1.20.2-R0.1-SNAPSHOT", 21))
-        put("1.20.3", new PaperDependencyUrlAndJavaVersion("io.papermc.paper:paper-api:1.20.3-R0.1-SNAPSHOT", 21))
-        put("1.20.4", new PaperDependencyUrlAndJavaVersion("io.papermc.paper:paper-api:1.20.4-R0.1-SNAPSHOT", 21))
-        put("1.20.5", new PaperDependencyUrlAndJavaVersion("io.papermc.paper:paper-api:1.20.5-R0.1-SNAPSHOT", 21))
-        put("1.20.6", new PaperDependencyUrlAndJavaVersion("io.papermc.paper:paper-api:1.20.6-R0.1-SNAPSHOT", 21))
-        put("1.21", new PaperDependencyUrlAndJavaVersion("io.papermc.paper:paper-api:1.21-R0.1-SNAPSHOT", 21))
-        put("1.21.1", new PaperDependencyUrlAndJavaVersion("io.papermc.paper:paper-api:1.21.1-R0.1-SNAPSHOT", 21))
-        put("1.21.3", new PaperDependencyUrlAndJavaVersion("io.papermc.paper:paper-api:1.21.3-R0.1-SNAPSHOT", 21))
-        put("1.21.4", new PaperDependencyUrlAndJavaVersion("io.papermc.paper:paper-api:1.21.4-R0.1-SNAPSHOT", 21))
+        put("1.16.5", new PaperDependencyProps("com.destroystokyo.paper:paper-api:1.16.5-R0.1-SNAPSHOT", 8))
+        put("1.17", new PaperDependencyProps("io.papermc.paper:paper-api:1.17-R0.1-SNAPSHOT", 17))
+        put("1.17.1", new PaperDependencyProps("io.papermc.paper:paper-api:1.17.1-R0.1-SNAPSHOT", 17))
+        put("1.18", new PaperDependencyProps("io.papermc.paper:paper-api:1.18-R0.1-SNAPSHOT", 17))
+        put("1.18.1", new PaperDependencyProps("io.papermc.paper:paper-api:1.18.1-R0.1-SNAPSHOT", 17))
+        put("1.18.2", new PaperDependencyProps("io.papermc.paper:paper-api:1.18.2-R0.1-SNAPSHOT", 17))
+        put("1.19", new PaperDependencyProps("io.papermc.paper:paper-api:1.19-R0.1-SNAPSHOT", 17))
+        put("1.19.1", new PaperDependencyProps("io.papermc.paper:paper-api:1.19.1-R0.1-SNAPSHOT", 17))
+        put("1.19.2", new PaperDependencyProps("io.papermc.paper:paper-api:1.19.2-R0.1-SNAPSHOT", 17))
+        put("1.19.3", new PaperDependencyProps("io.papermc.paper:paper-api:1.19.3-R0.1-SNAPSHOT", 17))
+        put("1.19.4", new PaperDependencyProps("io.papermc.paper:paper-api:1.19.4-R0.1-SNAPSHOT", 17))
+        put("1.20", new PaperDependencyProps("io.papermc.paper:paper-api:1.20-R0.1-SNAPSHOT", 21))
+        put("1.20.1", new PaperDependencyProps("io.papermc.paper:paper-api:1.20.1-R0.1-SNAPSHOT", 21))
+        put("1.20.2", new PaperDependencyProps("io.papermc.paper:paper-api:1.20.2-R0.1-SNAPSHOT", 21))
+        put("1.20.3", new PaperDependencyProps("io.papermc.paper:paper-api:1.20.3-R0.1-SNAPSHOT", 21))
+        put("1.20.4", new PaperDependencyProps("io.papermc.paper:paper-api:1.20.4-R0.1-SNAPSHOT", 21))
+        put("1.20.5", new PaperDependencyProps("io.papermc.paper:paper-api:1.20.5-R0.1-SNAPSHOT", 21))
+        put("1.20.6", new PaperDependencyProps("io.papermc.paper:paper-api:1.20.6-R0.1-SNAPSHOT", 21))
+        put("1.21", new PaperDependencyProps("io.papermc.paper:paper-api:1.21-R0.1-SNAPSHOT", 21))
+        put("1.21.1", new PaperDependencyProps("io.papermc.paper:paper-api:1.21.1-R0.1-SNAPSHOT", 21))
+        put("1.21.3", new PaperDependencyProps("io.papermc.paper:paper-api:1.21.3-R0.1-SNAPSHOT", 21))
+        put("1.21.4", new PaperDependencyProps("io.papermc.paper:paper-api:1.21.4-R0.1-SNAPSHOT", 21))
     }
 }
 
 dependencies {
-    compileOnly PAPER_DEPEND_AND_JAVA_VERSION_MAP.get(MC_VERSION).url
+    compileOnly PAPER_DEPENDS.get(MC_VERSION).url
 
     //compileOnly "com.sk89q.worldedit:worldedit-bukkit:latest.release"
     //compileOnly "com.sk89q.worldedit:worldedit-core:latest.release"
@@ -88,12 +88,12 @@ dependencies {
     //compileOnly name: "patched_1.16.5"
 
     // https://jitpack.io/#TeamKun/CommandLib
-    implementation 'com.github.TeamKun.CommandLib:bukkit:0.16.3'
+    implementation 'com.github.TeamKun.CommandLib:bukkit:0.17.2'
     // https://jitpack.io/#TeamKun/ConfigLib
-    implementation 'com.github.TeamKun.ConfigLib:bukkit:0.20.0'
+    implementation 'com.github.TeamKun.ConfigLib:bukkit:0.21.0'
 }
 
-def targetJavaVersion = PAPER_DEPEND_AND_JAVA_VERSION_MAP.get(MC_VERSION).javaVersion
+def targetJavaVersion = PAPER_DEPENDS.get(MC_VERSION).javaVersion
 java {
     def javaVersion = JavaVersion.toVersion(targetJavaVersion)
     sourceCompatibility = javaVersion
