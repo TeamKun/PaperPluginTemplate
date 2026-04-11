@@ -78,10 +78,10 @@ dependencies {
     //compileOnly("com.comphenix.protocol:ProtocolLib:latest.release")
     //compileOnly(":patched_1.16.5")
 
-    // https://jitpack.io/#TeamKun/CommandLib
-    implementation("com.github.TeamKun.CommandLib:bukkit:0.17.2")
-    // https://jitpack.io/#TeamKun/ConfigLib
-    implementation("com.github.TeamKun.ConfigLib:bukkit:0.21.0")
+    // https://jitpack.io/#Maru32768/CommandLib
+    implementation("com.github.Maru32768.CommandLib:bukkit:0.17.2")
+    // https://jitpack.io/#Maru32768/ConfigLib
+    implementation("com.github.Maru32768.ConfigLib:bukkit:0.21.0")
 }
 
 val paperDepend = paperDepends[mcVersion]
